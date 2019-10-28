@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8" />
+        <title>Posts by Users</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="assets/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/css/todo.min.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="assets/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <!-- END THEME LAYOUT STYLES -->
+    </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid">
+        <div class="page-wrapper">
+            <div class="page-wrapper-row">
+                <div class="page-wrapper-top">
+                    <!-- BEGIN HEADER -->
+                    <div class="page-header">
+                        <!-- BEGIN HEADER TOP -->
+                        <div class="page-header-top">
+                            <div class="container">
+                                <!-- BEGIN LOGO -->
+                                <div class="page-logo">
+                                    <a href="index.html">
+                                        <img src="assets/img/logo-default.jpg" alt="logo" class="logo-default">
+                                    </a>
+                                </div>
+                                <!-- END LOGO -->
+                                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                                <a href="javascript:;" class="menu-toggler"></a>
+                                <!-- END RESPONSIVE MENU TOGGLER -->
+
+                            </div>
+                        </div>
+                        <!-- END HEADER TOP -->
+                        <!-- BEGIN HEADER MENU -->
+                        <div class="page-header-menu">
+                            <div class="container">
+                            </div>
+                        </div>
+                        <!-- END HEADER MENU -->
+                    </div>
+                    <!-- END HEADER -->
+                </div>
+            </div>
+            <div class="page-wrapper-row full-height">
+                <div class="page-wrapper-middle">
+                    <!-- BEGIN CONTAINER -->
+                    <div class="page-container">
+                        <!-- BEGIN CONTENT -->
+                        <div class="page-content-wrapper">
+                            <!-- BEGIN CONTENT BODY -->
+                            <!-- BEGIN PAGE HEAD-->
+                            <div class="page-head">
+                                <div class="container">
+                                    <!-- BEGIN PAGE TITLE -->
+                                    <div class="page-title">
+                                        <h1>Posts by Users
+                                            <small>vue.js</small>
+                                        </h1>
+                                    </div>
+                                    <!-- END PAGE TITLE -->
+                                </div>
+                            </div>
+                            <!-- END PAGE HEAD-->
+                            <!-- BEGIN PAGE CONTENT BODY -->
+                            <div class="page-content">
+                                <div class="container">
+                                    <!-- BEGIN PAGE CONTENT INNER -->
+                                    <div class="page-content-inner" id="app">
+
+                                        <div class="todo-container">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <ul class="todo-projects-container">
+                                                        <li class="todo-padding-b-0">
+                                                            <div class="todo-head">
+
+                                                                <h3>{{ users.length }} Users</h3>
+                                                                <button class="btn btn-square btn-sm green todo-bold">Click on name or +</button>
+                                                            </div>
+                                                        </li>
+                                                        <li v-for="user in users" class="todo-projects-item">
+                                                            <h3>
+                                                                <a v-on:click="Showpost(user.id, user.name)">
+                                                                    {{ user.name }}
+                                                                </a>
+                                                            </h3>
+
+                                                            <p>Address: {{ user.address.suite }}, {{ user.address.street }}, {{ user.address.city }}, {{ user.address.zipcode }}</p>
+                                                            <div class="todo-project-item-foot">
+                                                                <p class="todo-red todo-inline">{{ user.email }}</p>
+                                                                <p class="todo-inline todo-float-r">
+                                                                    {{ user.username }}
+                                                                    <a v-on:click="Showpost(user.id, user.name)" class="todo-add-button">+</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="todo-projects-divider"></div>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="todo-tasks-container">
+                                                        <div class="todo-head">
+                                                            <button class="btn btn-square btn-sm red todo-bold">Click on Title</button>
+                                                            <h3>
+                                                                {{ posts.length }}
+                                                                <span class="todo-grey">Posts by </span>
+                                                                {{ name }}
+                                                            </h3>
+                                                        </div>
+                                                        <ul class="todo-tasks-content">
+                                                            <li v-for="(post, index) in posts" class="todo-tasks-item">
+                                                                <h4 class="todo-inline">
+                                                                    <a data-toggle="modal" href="#todo-task-modal" v-on:click="Showselected(post.id)">
+                                                                        {{ post.title }}
+                                                                    </a>
+                                                                </h4>
+                                                                <p class="todo-inline todo-float-r">
+                                                                    <span class="todo-green">{{index+1}}</span>
+                                                                </p>
+                                                            </li>
+                                                            
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="todo-task-modal" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content scroller" style="height: 100%;" data-always-visible="1" data-rail-visible="0">
+                                                    
+                                                    <div class="modal-body todo-task-modal-body">
+                                                        <h3 class="todo-task-modal-bg">{{ selected.title }}</h3>
+                                                        <p class="todo-task-modal-bg">{{ selected.body }} </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn default" data-dismiss="modal" aria-hidden="true">Close</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <!-- END PAGE CONTENT INNER -->
+                                </div>
+                            </div>
+                            <!-- END PAGE CONTENT BODY -->
+                            <!-- END CONTENT BODY -->
+                        </div>
+                        <!-- END CONTENT -->
+
+                    </div>
+                    <!-- END CONTAINER -->
+                </div>
+            </div>
+            <div class="page-wrapper-row">
+                <div class="page-wrapper-bottom">
+                    <!-- BEGIN FOOTER -->
+                    <!-- BEGIN PRE-FOOTER -->
+                    <div class="page-prefooter">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-6 col-xs-12 footer-block">
+                                    <h2>About</h2>
+                                    <p> Coded by Le Zhou </p>
+                                </div>
+                                <div class="col-md-5 col-sm-6 col-xs-12 footer-block">
+                                    <h2>Contacts</h2>
+                                    <address class="margin-bottom-40"> Phone: 027 215 6566
+                                        <br> Email:
+                                        <a href="mailto:lennereinhard@gmail.com">lennereinhard@gmail.com</a>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--[if lt IE 9]>
+<script src="assets/global/plugins/respond.min.js"></script>
+<script src="assets/global/plugins/excanvas.min.js"></script> 
+<script src="assets/global/plugins/ie8.fix.min.js"></script> 
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="assets/js/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.0.3/vue-resource.min.js"></script>
+    </body>
+
+</html>
+<script id="jsbin-javascript">
+    new Vue({
+  
+      el: '#app',
+  
+      data: {
+      users: [],
+      posts: [],
+      post: '',
+      selected: '',
+      name:''
+      },
+  
+      created() {
+        this.mounted()
+      },
+  
+      methods: {
+        mounted() {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then(response => response.json())
+        .then((data) => {
+          this.users = data;
+        })
+    },
+        Showpost(id, name) {
+        fetch("https://jsonplaceholder.typicode.com/posts?userId=" + id)
+          .then(response => response.json())
+          .then((data) => {
+              this.posts = data.slice(0, 10);
+              this.name = name;
+          })
+      },
+      Showselected(id) {
+        fetch("https://jsonplaceholder.typicode.com/posts?id=" + id)
+          .then(response => response.json())
+          .then((data) => {
+            this.selected = data[0];
+  
+          })
+      }
+    }
+  
+    })
+  </script>
